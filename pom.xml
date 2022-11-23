@@ -9,7 +9,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<dependency.jackson.version>2.14.1</dependency.jackson.version>
 		<org.slf4j.version>2.0.4</org.slf4j.version>
-		<netty4.version>4.1.82.Final</netty4.version>
+		<netty4.version>4.1.85.Final</netty4.version>
 		<apache.commons-lang3.version>3.12.0</apache.commons-lang3.version>
 	</properties>
 	<dependencyManagement>
@@ -139,11 +139,21 @@
 				<artifactId>webdrivermanager</artifactId>
 				<version>5.3.1</version>
 			</dependency>
+			<dependency>
+				<groupId>edu.berkeley.cs.jqf</groupId>
+				<artifactId>jqf-fuzz</artifactId>
+				<version>1.9</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<build>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+					<groupId>edu.berkeley.cs.jqf</groupId>
+					<artifactId>jqf-maven-plugin</artifactId>
+					<version>1.9</version>
+				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
@@ -207,6 +217,32 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>2.13.0</version>
+				<configuration>
+					<ruleSet>
+						<rules>
+							<rule>
+								<groupId>io.netty</groupId>
+								<artifactId>netty-all</artifactId>
+								<ignoreVersions>
+									<ignoreVersion>
+										<version>5.0.0.Alpha1</version>
+									</ignoreVersion>
+									<ignoreVersion>
+										<version>5.0.0.Alpha2</version>
+									</ignoreVersion>
+								</ignoreVersions>
+
+							</rule>
+						</rules>
+					</ruleSet>
+				</configuration>
+			</plugin>
+
+
 		</plugins>
 	</build>
 </project>
